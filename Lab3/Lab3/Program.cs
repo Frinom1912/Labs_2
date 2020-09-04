@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections;
-
+using System.Collections.Generic;
 
 namespace Lab3
 {
-    public interface IComparable
-    {
-        int CompareTo(object obj);
-    }
     interface IPrint
     {
         void Print();
     }
-    public abstract class Figure : IComparable
+    abstract class Figure : IComparable, IPrint
     {
         public abstract double getArea();
+        public abstract void Print();
         public int CompareTo(object obj)
         {
             Figure robj = obj as Figure;
@@ -26,7 +23,7 @@ namespace Lab3
                 throw new Exception("Несравнимые объекты");
         }
     }
-    class Rectangle : Figure, IPrint
+    class Rectangle : Figure
     {
         protected double length, width;
 
@@ -43,7 +40,7 @@ namespace Lab3
         {
             return $"Фигура:\tПрямоугольник\nВысота:\t{this.length}\nШирина:\t{this.width}\nПлощадь: {this.getArea()}\n";
         }
-        public void Print()
+        public override void Print()
         {
             Console.WriteLine(this.ToString());
         }
@@ -55,14 +52,14 @@ namespace Lab3
         {
             return $"Фигура:\tКвадрат\nДлина стороны:\t{this.length}\nПлощадь: {this.getArea()}\n";
         }
-        public void Print()
+        public override void Print()
         {
             Console.WriteLine(this.ToString());
         }
     }
     class Circle : Figure
     {
-        private double rad;
+        protected double rad;
 
         public Circle(double rad)
         {
@@ -76,7 +73,7 @@ namespace Lab3
         {
             return $"Фигура:\tКруг\nРадиус:\t{this.rad}\nПлощадь: {this.getArea()}\n";
         }
-        public void Print()
+        public override void Print()
         {
             Console.WriteLine(this.ToString());
         }
@@ -88,13 +85,24 @@ namespace Lab3
             Rectangle rec = new Rectangle(4.5, 2);
             Square sq = new Square(3.14);
             Circle circle = new Circle(1);
-            ArrayList list = new ArrayList();
+
+            ArrayList alist = new ArrayList();
+            alist.Add(rec);
+            alist.Add(sq);
+            alist.Add(circle);
+            alist.Sort();
+            for (int i = 0; i < alist.Count; i++)
+                Console.WriteLine(alist[i]);
+
+            List<Figure> list = new List<Figure>();
             list.Add(rec);
             list.Add(sq);
             list.Add(circle);
             list.Sort();
-            for (int i = 0; i < list.Count; i++)
-                Console.WriteLine(list[i]);
+            for (int i = 0; i < alist.Count; i++)
+                Console.WriteLine(alist[i]);
+
+
         }
     }
 }
