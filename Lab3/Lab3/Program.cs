@@ -4,111 +4,71 @@ using System.Collections.Generic;
 
 namespace Lab3
 {
-    interface IPrint
-    {
-        void Print();
-    }
-    abstract class Figure : IComparable, IPrint
-    {
-        public abstract double getArea();
-        public abstract void Print();
-        public int CompareTo(object obj)
-        {
-            Figure robj = obj as Figure;
-            if (robj != null)
-            {
-                return this.getArea().CompareTo(robj.getArea());
-            }
-            else
-                throw new Exception("Несравнимые объекты");
-        }
-    }
-    class Rectangle : Figure
-    {
-        protected double length, width;
-
-        public Rectangle(double length, double width)
-        {
-            this.length = length;
-            this.width = width;
-        }
-        public override double getArea()
-        {
-            return length * width;
-        }
-        public override string ToString()
-        {
-            return $"Фигура:\tПрямоугольник\nВысота:\t{this.length}\nШирина:\t{this.width}\nПлощадь: {this.getArea()}\n";
-        }
-        public override void Print()
-        {
-            Console.WriteLine(this.ToString());
-        }
-    }
-    class Square : Rectangle
-    {
-        public Square(double length) : base(length, length) { }
-        public override string ToString()
-        {
-            return $"Фигура:\tКвадрат\nДлина стороны:\t{this.length}\nПлощадь: {this.getArea()}\n";
-        }
-        public override void Print()
-        {
-            Console.WriteLine(this.ToString());
-        }
-    }
-    class Circle : Figure
-    {
-        protected double rad;
-
-        public Circle(double rad)
-        {
-            this.rad = rad;
-        }
-        public override double getArea()
-        {
-            return rad * rad * Math.PI;
-        }
-        public override string ToString()
-        {
-            return $"Фигура:\tКруг\nРадиус:\t{this.rad}\nПлощадь: {this.getArea()}\n";
-        }
-        public override void Print()
-        {
-            Console.WriteLine(this.ToString());
-        }
-    }
     class Program
     {
         static void Main(string[] args)
         {
+            // Объекты фигур
             Rectangle rec = new Rectangle(4.5, 2);
             Square sq = new Square(3.14);
             Circle circle = new Circle(1);
 
+            // Проверка через ArrayList
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t\tArrayList");
             Console.ForegroundColor = ConsoleColor.Gray;
             ArrayList alist = new ArrayList();
-            alist.Add(rec);
             alist.Add(sq);
+            alist.Add(rec);
             alist.Add(circle);
+            foreach (Figure item in alist)
+                Console.WriteLine(item);
             alist.Sort();
-            for (int i = 0; i < alist.Count; i++)
-                Console.WriteLine(alist[i]);
+            Console.WriteLine("\nПосле сортировки:\n");
+            foreach (Figure item in alist)
+                Console.WriteLine(item);
 
+            // Проверка через List<>
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\t\tList<Figure>");
+            Console.WriteLine("\n\t\tList<Figure>");
             Console.ForegroundColor = ConsoleColor.Gray;
             List<Figure> list = new List<Figure>();
             list.Add(rec);
             list.Add(sq);
             list.Add(circle);
+            foreach (Figure item in list)
+                Console.WriteLine(item);
             list.Sort();
-            for (int i = 0; i < alist.Count; i++)
-                Console.WriteLine(alist[i]);
+            Console.WriteLine("\nПосле сортировки:\n");
+            foreach (Figure item in list)
+                Console.WriteLine(item);
 
+            // Проверка доработанной трехмерной матрицы
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\t\tМатрица");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Matrix<Figure> matrix = new Matrix<Figure>(new FigureMatrixCheckEmpty(), 3, 3, 3);
+            matrix[0, 0, 0] = rec;
+            matrix[1, 1, 1] = sq;
+            matrix[2, 2, 0] = circle;
+            Console.WriteLine(matrix.ToString());
 
+            // Проверка SimpleStack
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\t\tSimpleStack<Figure>");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            SimpleStack<Figure> slist = new SimpleStack<Figure>();
+            slist.Add(rec);
+            slist.Add(sq);
+            slist.Add(circle);
+            foreach (Figure item in slist)
+                Console.WriteLine(item);
+            slist.Sort();
+            Console.WriteLine("\nПосле сортировки:\n");
+            foreach (Figure item in slist)
+                Console.WriteLine(item);
+
+            Console.WriteLine("\n");
         }
     }
 }
