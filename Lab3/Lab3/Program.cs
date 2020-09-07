@@ -86,6 +86,9 @@ namespace Lab3
             Square sq = new Square(3.14);
             Circle circle = new Circle(1);
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t\tArrayList");
+            Console.ForegroundColor = ConsoleColor.Gray;
             ArrayList alist = new ArrayList();
             alist.Add(rec);
             alist.Add(sq);
@@ -94,6 +97,9 @@ namespace Lab3
             for (int i = 0; i < alist.Count; i++)
                 Console.WriteLine(alist[i]);
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t\tList<Figure>");
+            Console.ForegroundColor = ConsoleColor.Gray;
             List<Figure> list = new List<Figure>();
             list.Add(rec);
             list.Add(sq);
