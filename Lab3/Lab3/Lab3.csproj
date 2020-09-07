@@ -45,6 +45,17 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Стак\SimpleList.cs" />
+    <Compile Include="Стак\SimpleListItem.cs" />
+    <Compile Include="Стак\SimpleStack.cs" />
+    <Compile Include="Матрица\FigureMatrixCheckEmpty.cs" />
+    <Compile Include="Матрица\IMatrixCheckEmpty.cs" />
+    <Compile Include="Матрица\Matrix.cs" />
+    <Compile Include="Фигуры\Circle.cs" />
+    <Compile Include="Фигуры\Figure.cs" />
+    <Compile Include="Фигуры\IPrint.cs" />
+    <Compile Include="Фигуры\Rectangle.cs" />
+    <Compile Include="Фигуры\Square.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
