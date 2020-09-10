@@ -18,14 +18,22 @@ namespace Lab3
             Console.WriteLine("\t\tArrayList");
             Console.ForegroundColor = ConsoleColor.Gray;
             ArrayList alist = new ArrayList();
+            alist.Add(4);
             alist.Add(sq);
             alist.Add(rec);
             alist.Add(circle);
-            foreach (Figure item in alist)
+            foreach (object item in alist)
                 Console.WriteLine(item);
-            alist.Sort();
+            try
+            {
+                alist.Sort();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             Console.WriteLine("\nПосле сортировки:\n");
-            foreach (Figure item in alist)
+            foreach (object item in alist)
                 Console.WriteLine(item);
 
             // Проверка через List<>

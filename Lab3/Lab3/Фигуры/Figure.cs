@@ -18,7 +18,7 @@ namespace Lab3
                 return this.getArea().CompareTo(robj.getArea());
             }
             else
-                throw new Exception("Несравнимые объекты");
+                throw new InvalidOperationException(message:"Несравнимые объекты");
         }
         public override string ToString()
         {
