@@ -8,59 +8,95 @@ namespace Lab1
 {
     class Program
     {
+        static int getK(int number)
+        {
+            int k = 0;
+            bool res = false;
+            while (!res)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Коэффициент " + (char)('a' + number) + ": ");
+                string line = Console.ReadLine();
+                res = Int32.TryParse(line, out k);
+                if (!res)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Неверный формат коэффициента!");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+            return k;
+        }
+        static int[] checkArgs(string[] args)
+        {
+            int[] ks = default(int[]);
+            if (args.Length > 0 && args.Length != 3)
+                throw new FormatException("Недостаточно аргументов");
+            else
+            {
+                if (args.Length == 0)
+                    return null;
+                else
+                {
+                    if (args.Length == 3)
+                    {
+                        ks = new int[3];
+                        for (int i = 0; i < args.Length; i++)
+                        {
+                            bool res = Int32.TryParse(args[i], out ks[i]);
+                            if (!res)
+                                throw new FormatException("Неверный формат коэффициента в аргументе консоли!");
+                        }
+                        return ks;
+                    }
+                }
+            }
+            return null;
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Бондаренко Иван Геннадьевич ИУ5-31Б");
-            string line;
-            int[] k = new int[3];
-            for (int i = 0; i < 3; i++)
+            int[] ks;
+
+            try
             {
-                while (true)
+                ks = checkArgs(args);
+            }
+            catch(FormatException e)
+            {
+                ks = null;
+                Console.WriteLine(e.Message);
+            }
+
+            if (ks == null)
+            {
+                ks = new int[3];
+
+                for (int i = 0; i < 3; i++)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Коэффициент " + (char)('a' + i));
-                    line = Console.ReadLine();
-                    bool flag = true;
-                    foreach (char sym in line)
-                    {
-                        if (sym >= '0' && sym <= '9')
-                            continue;
-                        else
-                        {
-                            flag = !flag;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Ошибка, неприемлемый ввод!");
-                            break;
-                        }
-                    }
-                    if(flag)
-                    {
-                        k[i] = Convert.ToInt32(line);
-                        break;
-                    }
+                    ks[i] = getK(i);
                 }
-                Console.WriteLine(k[i]);
-            }
-            double D = k[1] * k[1] - 4 * k[0] * k[2];
-            if (D < 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Нет решений");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                if (D == 0)
+                double D = ks[1] * ks[1] - 4 * ks[0] * ks[2];
+                if (D < 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Два корня: " + (-1 * k[1]) / (2 * k[0]));
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Нет решений");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Корень 1: " + ((-1 * k[1]) + Math.Sqrt(D) / (2 * k[0])) + "Корень 2: " + ((-1 * k[1]) - Math.Sqrt(D) / (2 * k[0])));
-                    Console.ForegroundColor = ConsoleColor.White;
+                    if (D == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Два корня корня: " + Math.Sqrt((-1 * ks[1]) / (2 * ks[0])) + "и два корня: " + -1* Math.Sqrt((-1 * ks[1]) / (2 * ks[0]))) ;
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Корень 1: " + Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0]))) + "\nКорень 2: " + -1*Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0])))+ "\nКорень 3: " + Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0])))+ "\nКорень 4: " + -1*Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0]))));
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
                 }
             }
         }
