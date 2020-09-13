@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,41 @@ namespace Lab1
 {
     class Program
     {
+        /// <summary>
+        /// Получение корней уравнения в зависимости от коэффициентов
+        /// </summary>
+        /// <param name="ks">Коэффициенты уравнения</param>
+        static void getResults(int[] ks)
+        {
+            double D = ks[1] * ks[1] - 4 * ks[0] * ks[2];
+            if (D < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Нет решений");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                if (D == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Два корня корня: " + Math.Sqrt((-1 * ks[1]) / (2 * ks[0])) + " и два корня: " + -1 * Math.Sqrt((-1 * ks[1]) / (2 * ks[0])));
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Корень 1: " + Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0]))) + "\nКорень 2: " + -1 * Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0]))) + "\nКорень 3: " + Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0]))) + "\nКорень 4: " + -1 * Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0]))));
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+
+        }
+        /// <summary>
+        /// Считывание коэффициентов с консоли
+        /// </summary>
+        /// <param name="number">Текущий номер параметра</param>
+        /// <returns>Полученный и распаршеный коэффициент</returns>
         static int getK(int number)
         {
             int k = 0;
@@ -17,7 +53,10 @@ namespace Lab1
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write("Коэффициент " + (char)('a' + number) + ": ");
                 string line = Console.ReadLine();
-                res = Int32.TryParse(line, out k);
+                if (line != "")
+                {
+                    res = Int32.TryParse(line, out k);
+                }
                 if (!res)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -27,6 +66,11 @@ namespace Lab1
             }
             return k;
         }
+        /// <summary>
+        /// Проверяет аргументы при запуске с консоли
+        /// </summary>
+        /// <param name="args">Массив аргументов при запуске</param>
+        /// <returns>Массив численных аргументов</returns>
         static int[] checkArgs(string[] args)
         {
             int[] ks = default(int[]);
@@ -43,8 +87,7 @@ namespace Lab1
                         ks = new int[3];
                         for (int i = 0; i < args.Length; i++)
                         {
-                            bool res = Int32.TryParse(args[i], out ks[i]);
-                            if (!res)
+                            if (!Int32.TryParse(args[i], out ks[i]))
                                 throw new FormatException("Неверный формат коэффициента в аргументе консоли!");
                         }
                         return ks;
@@ -65,7 +108,9 @@ namespace Lab1
             catch(FormatException e)
             {
                 ks = null;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             if (ks == null)
@@ -76,29 +121,8 @@ namespace Lab1
                 {
                     ks[i] = getK(i);
                 }
-                double D = ks[1] * ks[1] - 4 * ks[0] * ks[2];
-                if (D < 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Нет решений");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                }
-                else
-                {
-                    if (D == 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Два корня корня: " + Math.Sqrt((-1 * ks[1]) / (2 * ks[0])) + "и два корня: " + -1* Math.Sqrt((-1 * ks[1]) / (2 * ks[0]))) ;
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Корень 1: " + Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0]))) + "\nКорень 2: " + -1*Math.Sqrt((((-1 * ks[1]) + Math.Sqrt(D)) / (2 * ks[0])))+ "\nКорень 3: " + Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0])))+ "\nКорень 4: " + -1*Math.Sqrt((((-1 * ks[1]) - Math.Sqrt(D)) / (2 * ks[0]))));
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                }
             }
+            getResults(ks);
         }
     }
 }

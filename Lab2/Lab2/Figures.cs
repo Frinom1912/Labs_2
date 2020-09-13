@@ -77,6 +77,7 @@ namespace Lab2
     {
         static void Main(string[] args)
         {
+
             Circle a = new Circle(4.5);
             a.Print();
         }

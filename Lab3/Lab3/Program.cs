@@ -24,6 +24,7 @@ namespace Lab3
             alist.Add(circle);
             foreach (object item in alist)
                 Console.WriteLine(item);
+
             try
             {
                 alist.Sort();

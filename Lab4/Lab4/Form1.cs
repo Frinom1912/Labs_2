@@ -81,32 +81,47 @@ namespace Lab4
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            bool isIn = false;
-            for(int i = 0; i<list.Count; i++)
-                if (Fisher.getLen(list[i], textBox2.Text) == 0)
+            if (textBox2.Text != "")
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                bool isIn = false;
+                Fisher fisher = new Fisher();
+                for (int i = 0; i < list.Count; i++)
                 {
-                    isIn = true;
-                    break;
+                    int m = fisher.GetLen(list[i], textBox2.Text);
+                    if (fisher.GetLen(list[i], textBox2.Text) == 0)
+                    {
+
+                        isIn = true;
+                        break;
+                    }
                 }
-               
-            if (isIn)
-            {
-                listBox1.SetSelected(list.IndexOf(textBox2.Text), true);
-                sw.Stop();
-                TimeSpan ts = sw.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                textBox3.Text = elapsedTime;
+                if (isIn)
+                {
+                    try
+                    {
+                        listBox1.SetSelected(list.IndexOf(textBox2.Text), true);
+                        sw.Stop();
+                        TimeSpan ts = sw.Elapsed;
+                        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                            ts.Hours, ts.Minutes, ts.Seconds,
+                            ts.Milliseconds / 10);
+                        textBox3.Text = elapsedTime;
+                    }
+                    catch
+                    {
+                        listBox1.ClearSelected();
+                        textBox3.Text = "Не найдено!";
+                    }
+                }
+                else
+                {
+                    listBox1.ClearSelected();
+                    textBox3.Text = "Не найдено!";
+                }
+                sw.Reset();
             }
-            else
-            {
-                listBox1.ClearSelected();
-                textBox3.Text = "Не найдено!";
-            }
-            sw.Reset();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
