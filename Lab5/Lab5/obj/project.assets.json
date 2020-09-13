@@ -186,11 +186,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Иван\\source\\repos\\Labs_2\\Lab5\\Lab5\\Lab5.csproj",
+      "projectUniqueName": "C:\\Users\\Иван\\source\\repos\\Labs2\\Lab5\\Lab5\\Lab5.csproj",
       "projectName": "Lab5",
-      "projectPath": "C:\\Users\\Иван\\source\\repos\\Labs_2\\Lab5\\Lab5\\Lab5.csproj",
+      "projectPath": "C:\\Users\\Иван\\source\\repos\\Labs2\\Lab5\\Lab5\\Lab5.csproj",
       "packagesPath": "C:\\Users\\Иван\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Иван\\source\\repos\\Labs_2\\Lab5\\Lab5\\obj\\",
+      "outputPath": "C:\\Users\\Иван\\source\\repos\\Labs2\\Lab5\\Lab5\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -239,7 +239,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

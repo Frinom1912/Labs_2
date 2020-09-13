@@ -4,7 +4,6 @@
     <id>Lab5</id>
     <version>1.0.0</version>
     <authors>Lab5</authors>
-    <owners>Lab5</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
@@ -12,6 +11,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\Иван\source\repos\Labs_2\Lab5\Lab5\bin\Debug\netstandard2.0\Lab5.dll" target="lib\netstandard2.0\Lab5.dll" />
+    <file src="C:\Users\Иван\source\repos\Labs2\Lab5\Lab5\bin\Debug\netstandard2.0\Lab5.dll" target="lib\netstandard2.0\Lab5.dll" />
   </files>
 </package>

@@ -92,7 +92,7 @@ namespace Lab5
                 }
                 dict[S1[i]] = i;
             }
-            return D[M + 1, N + 1];
+            return D[M, N];
 
         }
     }
