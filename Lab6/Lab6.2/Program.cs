@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Management.Instrumentation;
 using System.Reflection;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Lab6._2
 {
@@ -24,12 +18,21 @@ namespace Lab6._2
             this.Description = Description;
         }
     }
-    public class MyString
+
+    public class MyString : IComparable
     {
-        [MyAttribute(Description = "Атрибут MyAttribute: data")]
-        public char[] data { get { return _data; } set { data = null; } }
-        public int length { get; private set; }
-        private char[] _data;
+        public char[] data;
+        [MyAttribute(Description = "Атрибут MyAttribute: важная информация")]
+        public char[] Data 
+        { 
+            get { return data; } 
+            set { data = null; } 
+        }
+        
+        private int length;
+        
+        public int Length { get; private set; }
+        
         public MyString()
         {
             data = null;
@@ -48,12 +51,25 @@ namespace Lab6._2
             }
         }
 
+        public int CompareTo(object obj)
+        {
+            if (obj.GetType().Name == "MyString")
+            {
+                foreach(var field in obj.GetType().GetFields())
+                {
+                    if (field.GetValue(this) != field.GetValue(obj))
+                        return 1;
+                }
+                return 0;
+            }
+            return 1;
+        }
+
         public void Print()
         {
             for (int i = 0; i < length; i++)
                 Console.Write(data[i]);
         }
-        public int getLength() { return length; }
     }
 
     class Program
@@ -72,44 +88,82 @@ namespace Lab6._2
         }
         static void Main(string[] args)
         {
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\tРефлексия");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Type type = Type.GetType("Lab6._2.MyString");
+            Console.ResetColor();
 
-            MethodInfo[] methods = type.GetMethods();
+            Assembly i = Assembly.GetExecutingAssembly();
+            Console.WriteLine("Информация о сборке:");
+            Console.WriteLine(i.FullName + '\n');
+            Console.WriteLine("Место расположения сборки:");
+            Console.WriteLine(i.Location + '\n');
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Вывод методов:");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            foreach (MethodInfo method in methods)
+            Console.WriteLine("\tИнформация о типе");
+            Console.ResetColor();
+
+            Type type = typeof(MyString);
+
+            Console.WriteLine("Пространство имен: " + type.Namespace);
+            Console.WriteLine("Наследование: " + type.BaseType.FullName);
+            Console.WriteLine("Сборка: " + type.AssemblyQualifiedName);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nВывод конструкторов:");
+            Console.ResetColor();
+
+            foreach (var construct in type.GetConstructors())
+            {
+                Console.WriteLine("\t" + construct);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nВывод методов:");
+            Console.ResetColor();
+            foreach (var method in type.GetMethods())
             {
                 Console.WriteLine("\t" + method.Name);
             }
 
-            PropertyInfo[] props = type.GetProperties();
-
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nВывод свойств:");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            foreach (PropertyInfo prop in props)
+            Console.ResetColor();
+            foreach (var prop in type.GetProperties())
             {
                 Console.WriteLine("\t" + prop.PropertyType.ToString() + " " + prop.Name);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\nВывод свойств с атрибутом:");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            foreach (var x in props) 
-            { 
-                object attrObj; 
-                if (GetAttributeProperty(x, typeof(MyAttribute), out attrObj)) 
-                { 
-                    MyAttribute attr = attrObj as MyAttribute; 
-                    Console.WriteLine(x.Name + " - " + attr.Description); 
-                } 
+            Console.WriteLine("\nВывод public полей:");
+            Console.ResetColor();
+            foreach (var prop in type.GetFields())
+            {
+                Console.WriteLine("\t" + prop.Name);
             }
 
+            Console.WriteLine("\nMyString реализует IComparable -> " + new HashSet<Type>(type.GetInterfaces()).Contains(typeof(IComparable)));
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nВывод свойств с атрибутом:");
+            Console.ResetColor();
+            foreach (var x in type.GetProperties())
+            {
+                object attrObj;
+                if (GetAttributeProperty(x, typeof(MyAttribute), out attrObj))
+                {
+                    MyAttribute attr = attrObj as MyAttribute;
+                    Console.WriteLine(x.Name + " - " + attr.Description);
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nВызов метода:");
+            Console.ResetColor();
+            char[] arr = { '1', '2', '3', '4' };
+            MyString str = new MyString(arr);
+            type.InvokeMember("Print", BindingFlags.InvokeMethod, null, str, new object[] { });
+            Console.ReadLine();
         }
     }
 }

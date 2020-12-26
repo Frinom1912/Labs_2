@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.ExceptionServices;
 
 namespace Lab5
 {
     public class Fisher
     {
-        static protected int M, N;
-        static protected int[,] D;
         public static int GetLen(string S1, string S2)
         {
+            int M, N;
+            int[,] D;
             M = S1.Length+1;
             N = S2.Length+1;
             D = new int[M, N];
@@ -18,14 +16,16 @@ namespace Lab5
                 D[i, 0] = i;
             for (int j = 0; j < N; j++)
                 D[0, j] = j;
-            for (int i = 1; i < M; i++)
+
+            for (int i = 1; i <= M-1; i++)
             {
-                for(int j = 1; j<N; j++)
+                for(int j = 1; j <= N-1; j++)
                 {
                     int difference = (S1[i-1] == S2[j-1]) ? 0 : 1;
-                    int res = Math.Min(D[i - 1,j]+1, D[i,j - 1]+1);
-                    res = Math.Min(res, D[i - 1,j - 1]+difference);
-                    D[i, j] = res;
+                    D[i, j] = Math.Min(Math.Min(D[i - 1,j]+1, 
+                            D[i,j - 1]+1),
+                            D[i - 1, j - 1] + difference
+                        );
                 }
             }
             return D[M-1, N-1];

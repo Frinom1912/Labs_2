@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab3.Program">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.Square">
+    <Position X="0.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Фигуры\Square.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.Rectangle">
+    <Position X="0.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Фигуры\Rectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.Figure">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAQAAAAAEABA=</HashCode>
+      <FileName>Фигуры\Figure.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab3.Circle">
+    <Position X="3.5" Y="5.5" Width="1.5" />
+    <InheritanceLine Type="Lab3.Figure" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="4.632" />
+        <Point X="2.75" Y="5.125" />
+        <Point X="4.25" Y="5.125" />
+        <Point X="4.25" Y="5.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Фигуры\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.FigureMatrixCheckEmpty" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Матрица\FigureMatrixCheckEmpty.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Lab3.Matrix&lt;T&gt;">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAAAAAAECAAAAAIAAAAAAAAAAAAAAXAAAAA=</HashCode>
+      <FileName>Матрица\Matrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.SimpleList&lt;T&gt;">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAAAFBAAAEQAAQAAAABAAAAAACAAAAAAgA=</HashCode>
+      <FileName>Стак\SimpleList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab3.SimpleListItem&lt;T&gt;">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAIAAAA=</HashCode>
+      <FileName>Стак\SimpleListItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab3.SimpleStack&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Стак\SimpleStack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Lab3.IPrint">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Фигуры\IPrint.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Lab3.IMatrixCheckEmpty&lt;T&gt;">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Матрица\IMatrixCheckEmpty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
