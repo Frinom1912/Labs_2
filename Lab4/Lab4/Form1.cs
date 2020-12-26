@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using Lab5
+using Lab5;
 
 namespace Lab4
 {
@@ -20,6 +14,7 @@ namespace Lab4
         public Form1()
         {
             InitializeComponent();
+            radioButton1.Checked = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,13 +28,13 @@ namespace Lab4
             listBox1.Items.Clear();
             listBox1.EndUpdate();
             Stopwatch sw = new Stopwatch();
-            sw.Start();
             but = new OpenFileDialog();
             but.Filter = "Текстовый файл|*.txt";
             but.ShowDialog();
             try
             {
                 StreamReader read = new StreamReader(but.FileName);
+                sw.Start();
                 label1.Text = but.FileName;
                 string res = read.ReadToEnd();
                 string[] resArr;
@@ -58,11 +53,7 @@ namespace Lab4
                         list.Add(word.ToLower());
                 }
                 sw.Stop();
-                TimeSpan ts = sw.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                textBox1.Text = elapsedTime;
+                textBox1.Text = sw.Elapsed.ToString();
                 listBox1.BeginUpdate();
                 foreach (string a in list)
                 {
@@ -75,50 +66,59 @@ namespace Lab4
                 textBox1.Text = "Файл не выбран";
             }
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            listBox1.BeginUpdate();
-            listBox1.Items.Clear();
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            for(int i = 0; i<list.Count; i++)
+            if (radioButton1.Checked)
             {
-                if (list[i].Contains(textBox2.Text))
-                    listBox1.Items.Add(list[i]);
+                listBox1.BeginUpdate();
+                listBox1.Items.Clear();
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Contains(textBox2.Text))
+                        listBox1.Items.Add(list[i]);
+                }
+                sw.Stop();
+                textBox3.Text = sw.Elapsed.ToString();
+                sw.Reset();
+                if (listBox1.Items.Count == 0)
+                {
+                    textBox3.Text = "Не найдено!";
+                }
+                listBox1.EndUpdate();
             }
-            sw.Stop();
-            TimeSpan ts = sw.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-            textBox3.Text = elapsedTime;
-            sw.Reset();
-            if (listBox1.Items.Count == 0)
+            else
             {
-                foreach (string item in list)
-                    listBox1.Items.Add(item);
-                textBox3.Text = "Не найдено!";
+                if (radioButton2.Checked)
+                {
+                    if (textBox4.Text == "" || Convert.ToInt32(textBox4.Text) <=0)
+                    {
+                        MessageBox.Show("Введите максимальную длину > 0");
+                    }
+                    else
+                    {
+                        listBox1.BeginUpdate();
+                        listBox1.Items.Clear();
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            if (Fisher.GetLen(list[i], textBox2.Text) <= 
+                                Convert.ToInt32(textBox4.Text))
+                                listBox1.Items.Add(list[i]);
+                        }
+                        sw.Stop();
+                        textBox3.Text = sw.Elapsed.ToString();
+                        sw.Reset();
+                        if (listBox1.Items.Count == 0)
+                        {
+                            textBox3.Text = "Не найдено!";
+                        }
+                        listBox1.EndUpdate();
+                    }
+                }
             }
-            listBox1.EndUpdate();
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Lab3
         }
         public override string ToString()
         {
-            return $"{this.Type} площадью {this.getArea()}";
+            return $"[{this.Type} площадью {this.getArea()}]";
         }
     }
 }

@@ -115,7 +115,7 @@ namespace Lab3
                 b.Append($"Глубина\t{k}:\n");
                 for (int j = 0; j < this.maxY; j++)
                 {
-                    b.Append("[");
+                    b.Append("|");
                     for (int i = 0; i < this.maxX; i++)
                     {
                         //Добавление разделителя-табуляции
@@ -132,10 +132,10 @@ namespace Lab3
                         else
                         {
                             //Иначе добавить признак пустого значения
-                            b.Append(" - ");
+                            b.Append(" NULL ");
                         }
                     }
-                    b.Append("]\n");
+                    b.Append("|\n");
                 }
                 b.Append("\n\n");
             }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab6
 {
@@ -34,7 +30,7 @@ namespace Lab6
             int a, b;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\tДелегаты");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ResetColor();
             while (true)
             {
                 Console.Write("Введите число №1: ");
@@ -62,9 +58,8 @@ namespace Lab6
             Console.WriteLine(SimpleCalc(a, b, Sum));
             Console.Write($"Лямбда-выражение в качестве аргумента: {a} + {b} = ");
             Console.WriteLine(SimpleCalc(a, b, (m, n) => (m + n)));
-            Func<int, int, int> res = Sum;
             Console.Write($"Func<> в качестве аргумента: {a} + {b} = ");
-            Console.WriteLine(SimpleCalcFunc(a, b, res));
+            Console.WriteLine(SimpleCalcFunc(a, b, Sum));
         }
     }
 }

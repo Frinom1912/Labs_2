@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab2
 {
@@ -10,12 +6,16 @@ namespace Lab2
     {
         void Print();
     }
-    public abstract class Figure
+    public abstract class Figure : IPrint
     {
-        public abstract double getArea();
+        public void Print()
+        {
+            Console.WriteLine(this.ToString());
+        }
+        public abstract double GetArea();
     }
 
-    class Rectangle : Figure, IPrint
+    class Rectangle : Figure
     {
         protected double length, width;
 
@@ -24,17 +24,14 @@ namespace Lab2
             this.length = length;
             this.width = width;
         }
-        public override double getArea()
+        public override double GetArea()
         {
             return length * width;
         }
         public override string ToString()
         {
-            return $"Фигура:\tПрямоугольник\nВысота:\t{this.length}\nШирина:\t{this.width}\nПлощадь: {this.getArea()}\n";
-        }
-        public void Print()
-        {
-            Console.WriteLine(this.ToString());
+            return $"Фигура:\tПрямоугольник\nВысота:\t{this.length}\n" +
+                $"Ширина:\t{this.width}\nПлощадь: {this.GetArea()}\n";
         }
     }
 
@@ -43,11 +40,8 @@ namespace Lab2
         public Square(double length) : base(length, length) { }
         public override string ToString()
         {
-            return $"Фигура:\tКвадрат\nДлина стороны:\t{this.length}\nПлощадь: {this.getArea()}\n";
-        }
-        public void Print()
-        {
-            Console.WriteLine(this.ToString());
+            return $"Фигура:\tКвадрат\nДлина стороны:" +
+                $"\t{this.length}\nПлощадь: {this.GetArea()}\n";
         }
     }
 
@@ -59,17 +53,14 @@ namespace Lab2
         {
             this.rad = rad;     
         }
-        public override double getArea()
+        public override double GetArea()
         {
             return rad * rad * Math.PI;
         }
         public override string ToString()
         {
-            return $"Фигура:\tКруг\nРадиус:\t{this.rad}\nПлощадь: {this.getArea()}\n";
-        }
-        public void Print()
-        {
-            Console.WriteLine(this.ToString());
+            return $"Фигура:\tКруг\nРадиус:" +
+                $"\t{this.rad}\nПлощадь: {this.GetArea()}\n";
         }
     }
 
@@ -77,9 +68,14 @@ namespace Lab2
     {
         static void Main(string[] args)
         {
+            Rectangle rec = new Rectangle(2, 4.5);
+            rec.Print(); 
+            
+            Square sq = new Square(3);
+            sq.Print();
 
-            Circle a = new Circle(4.5);
-            a.Print();
+            Circle cr = new Circle(3.14);
+            cr.Print();
         }
     }
 }
